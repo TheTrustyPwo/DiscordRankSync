@@ -1,0 +1,7 @@
+name: DiscordRankSync
+version: '${version}'
+main: net.evilkingdom.discordranks.DiscordRankSync
+api-version: 1.18
+prefix: DiscordRankSync
+authors: [ TheTrustyPwo ]
+description: Rank Sync Plugin
