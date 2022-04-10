@@ -1,0 +1,23 @@
+bot_token: ""
+guild_id: ""
+
+database:
+  type: "MONGODB"
+
+  # MongoDB
+  mongo:
+    connection_url: ""
+    database: ""
+
+ranks:
+  # Permission : Role ID
+  "group.donator": ""
+
+messages:
+  # /discord
+  discord:
+    - ""
+
+  # /discord link
+  link:
+    - ""
