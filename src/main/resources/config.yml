@@ -21,23 +21,28 @@ messages:
   minecraft:
     # Default message when the player executes `/discord`
     default:
-      - "https://discord.gg/UebcN8zxY5"
+      - "&6&m------------------------------"
+      - "&e&lDiscord: &flink"
+      - "&7&o(( Click the above link to join our discord! ))"
+      - "&6&m------------------------------"
 
     # When the player executes `/discord link` even though the player is already linked
     already_linked:
-      - "You are already linked"
+      - "&e&lDISCORD &8» &cYou are already linked!"
 
     # When the player executes `/discord unlink` even though the player is not linked
     not_linked:
-      - "You are not linked"
+      - "&e&lDISCORD &8» &cYou need to be already linked to do that!"
 
     # When the player executes `/discord link` and is not already linked
     link:
-      - "%code%"
+      - "               &e&lDISCORD LINKING"
+      - "        &fHead to our Discord server and type"
+      - "&6/link %code% &fto get linked with your Discord account!"
 
     # When the player executes `/discord unlink` and is currently linked
     unlink:
-      - "You unlinked"
+      - "&e&lDISCORD &8» &cYou successfully unlinked with your discord account."
 
     # When the player executes `/discord whois <target>` and target is linked
     whois_linked:
@@ -46,3 +51,25 @@ messages:
     # When the player executes `/discord whois <target>` and target is not linked
     whois_not_linked:
       - ""
+
+    # When the player tries to reload the plugin without permission
+    no_permission:
+      - "&c&l(!) &cNo Permission!"
+
+    # When the player successfully reloads the plugin
+    reload:
+      - "&e&lDISCORD &8» &aSuccessfully reloaded the plugin."
+
+  discord:
+    # When the user successfully links with his/her Minecraft account
+    link_success:
+      title: "✅ Success"
+      description: "You are now linked with **%player-name%**!"
+      color: "00FF00"
+      timestamp: true
+
+    link_invalid:
+      title: "❌ Invalid Code"
+      description: "You entered an invalid code!"
+      color: "FF00000"
+      timestmap: true

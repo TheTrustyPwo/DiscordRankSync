@@ -53,6 +53,15 @@ public class DiscordCommand implements CommandExecutor {
 
                 player.sendMessage(this.plugin.getMessage("whois_linked"));
             }
+            case "RELOAD" -> {
+                if (!player.hasPermission("drs.reload")) {
+                    player.sendMessage(this.plugin.getMessage("no_permission"));
+                    return false;
+                }
+
+                this.plugin.reloadConfig();
+                player.sendMessage(this.plugin.getMessage("reload"));
+            }
         }
 
         return false;
