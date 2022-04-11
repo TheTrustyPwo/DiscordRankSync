@@ -5,3 +5,5 @@ api-version: 1.18
 prefix: DiscordRankSync
 authors: [ TheTrustyPwo ]
 description: Rank Sync Plugin
+commands:
+  discord:

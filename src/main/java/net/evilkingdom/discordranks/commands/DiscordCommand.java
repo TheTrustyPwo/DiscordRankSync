@@ -1,21 +1,16 @@
 package net.evilkingdom.discordranks.commands;
 
 import net.evilkingdom.discordranks.DiscordRankSync;
-import net.evilkingdom.discordranks.utils.StringUtilities;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.UUID;
 
 public class DiscordCommand implements CommandExecutor {
     private final DiscordRankSync plugin;
-    private Map<UUID, String> secretCodes;
 
     public DiscordCommand(DiscordRankSync plugin) {
         this.plugin = plugin;
@@ -23,18 +18,40 @@ public class DiscordCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player)) return false;
+        if (!(sender instanceof Player player)) return false;
 
         if (args.length == 0) {
-            List<String> message = this.plugin.getConfig().getStringList("messages.discord");
-            sender.sendMessage(StringUtilities.colorize(message));
+            player.sendMessage(this.plugin.getMessage("default"));
+            return true;
         }
 
         switch (args[0].toUpperCase(Locale.ROOT)) {
-            case "LINK": {
+            case "LINK" -> {
+                if (this.plugin.getPlayerManager().getPlayerUserCache().containsKey(player.getUniqueId())) {
+                    player.sendMessage(this.plugin.getMessage("already_linked"));
+                    return false;
+                }
 
-            } case "UNLINK": {
+                String code = this.plugin.getPlayerManager().giveCode(player.getUniqueId());
+                player.sendMessage(this.plugin.getMessage("link")
+                        .replace("%code%", code));
+            }
+            case "UNLINK" -> {
+                if (!this.plugin.getPlayerManager().getPlayerUserCache().containsKey(player.getUniqueId())) {
+                    player.sendMessage(this.plugin.getMessage("not_linked"));
+                    return false;
+                }
 
+                this.plugin.getPlayerManager().unlink(player.getUniqueId());
+                player.sendMessage(this.plugin.getMessage("unlink"));
+            }
+            case "WHOIS" -> {
+                if (!this.plugin.getPlayerManager().getPlayerUserCache().containsKey(player.getUniqueId())) {
+                    player.sendMessage(this.plugin.getMessage("whois_not_linked"));
+                    return false;
+                }
+
+                player.sendMessage(this.plugin.getMessage("whois_linked"));
             }
         }
 
