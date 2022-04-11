@@ -28,7 +28,7 @@ public class StringUtilities {
     /**
      * Allows you to colorize a list of strings.
      *
-     * @param list<string></string> ~ The list of strings that needs to be colorized.
+     * @param list ~ The list of strings that needs to be colorized.
      * @return The colorized string list joined, each in a new line.
      */
     public static String colorize(List<String> list) {
