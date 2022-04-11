@@ -8,12 +8,11 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Projections;
-import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.Filters;
 import net.evilkingdom.discordranks.DiscordRankSync;
 import net.evilkingdom.discordranks.database.Database;
 import org.bson.Document;
-import org.bson.conversions.Bson;
+import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
@@ -22,10 +21,13 @@ public class Mongo extends Database {
     private final DiscordRankSync plugin;
     private MongoClient client;
     private MongoDatabase database;
+    private MongoCollection<Document> collection;
 
     public Mongo(DiscordRankSync plugin) {
         super(plugin);
         this.plugin = plugin;
+        if (connect()) Bukkit.getLogger().info("Successfully connected to database!");
+        else Bukkit.getLogger().warning("Failed to connect to database!");
     }
 
     @Override
@@ -41,22 +43,33 @@ public class Mongo extends Database {
                 .build();
         this.client = MongoClients.create(settings);
         this.database = this.client.getDatabase(databaseName);
+        this.collection = this.database.getCollection("players");
         return true;
     }
 
-    private void createCollections() {
-        this.database.createCollection("players");
+    @Override
+    public void close() {
+        this.client.close();
     }
 
     @Override
-    public String getUserID(UUID uuid) {
+    public String getDiscordId(UUID uuid) {
+        Document document = this.collection.find(Filters.eq("_id", uuid.toString())).first();
+        if (document == null) return null;
+        return document.getString("discordId");
+    }
+
+    @Override
+    public void linkPlayer(UUID uuid, String discordId) {
+        Document document = new Document()
+                .append("_id", uuid.toString())
+                .append("discordId", discordId);
+        this.collection.insertOne(document);
+    }
+
+    @Override
+    public void unlinkPlayer(UUID uuid) {
         MongoCollection<Document> collection = this.database.getCollection("players");
-        Bson projectionFields = Projections.fields(
-                Projections.include("uuid", uuid.toString()),
-                Projections.excludeId());
-        Document document = collection.find()
-                .projection(projectionFields)
-                .first();
-        return document.getString("userId");
+        collection.deleteOne(Filters.eq("_id", uuid.toString()));
     }
 }
