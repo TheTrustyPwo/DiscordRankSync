@@ -36,9 +36,12 @@ messages:
 
     # When the player executes `/discord link` and is not already linked
     link:
-      - "               &e&lDISCORD LINKING"
-      - "        &fHead to our Discord server and type"
-      - "&6/link %code% &fto get linked with your Discord account!"
+      - " "
+      - "                           &e&lDISCORD LINKING"
+      - "        &fHead over to our Discord server &7(( /discord ))"
+      - "  &fand type &6/link %code% &fto get linked with your Discord"
+      - "                   &faccount! The code expires in 1 minute!"
+      - " "
 
     # When the player executes `/discord unlink` and is currently linked
     unlink:
@@ -63,13 +66,19 @@ messages:
   discord:
     # When the user successfully links with his/her Minecraft account
     link_success:
-      title: "✅ Success"
+      title: "✅ Success!"
       description: "You are now linked with **%player-name%**!"
+      thumbnail: "https://minotar.net/avatar/%player-name%"
       color: "00FF00"
-      timestamp: true
 
-    link_invalid:
-      title: "❌ Invalid Code"
+    # When the user enters an invalid code
+    invalid_code:
+      title: "❌ Invalid Code!"
       description: "You entered an invalid code!"
       color: "FF00000"
-      timestmap: true
+
+    # When the user is already linked
+    already_linked:
+      title: "❌ Already Linked!"
+      description: "You are already linked to **%player-name%**! \nType `/discord unlink` in game to unlink with this account."
+      color: "FF00000"

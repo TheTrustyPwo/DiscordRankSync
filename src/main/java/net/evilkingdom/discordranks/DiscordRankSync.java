@@ -1,8 +1,10 @@
 package net.evilkingdom.discordranks;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -32,6 +34,7 @@ public final class DiscordRankSync extends JavaPlugin {
     private JDA jda;
     private Map<String, Role> ranks;
     private Map<String, String> messages;
+    private Map<String, MessageEmbed> embeds;
     private PlayerManager playerManager;
     private DiscordRankSyncAPI api;
 
@@ -52,6 +55,7 @@ public final class DiscordRankSync extends JavaPlugin {
         loadSlashCommands();
         loadRanks();
         loadMessages();
+        loadEmbeds();
     }
 
     private void loadDatabase() {
@@ -109,6 +113,21 @@ public final class DiscordRankSync extends JavaPlugin {
         getLogger().info("Loaded messages");
     }
 
+    private void loadEmbeds() {
+        this.embeds = new HashMap<>();
+
+        ConfigurationSection section = getConfig().getConfigurationSection("messages.discord");
+        for (String identifier : section.getKeys(false)) {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setTitle(section.getString(identifier + ".title"));
+            embedBuilder.setDescription(section.getString(identifier + ".description"));
+            embedBuilder.setColor(Integer.parseInt(section.getString(identifier + ".color", "000000"), 16));
+            this.embeds.put(identifier, embedBuilder.build());
+        }
+
+        getLogger().info("Loaded embeds");
+    }
+
     private void registerCommands() {
         getCommand("discord").setExecutor(new DiscordCommand(this));
     }
@@ -116,6 +135,13 @@ public final class DiscordRankSync extends JavaPlugin {
     private void registerEvents() {
         Bukkit.getPluginManager().registerEvents(new OnPlayerJoin(this), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerQuit(this), this);
+    }
+
+    public void reload() {
+        reloadConfig();
+        loadRanks();
+        loadMessages();
+        loadEmbeds();
     }
 
     @Override
@@ -142,6 +168,10 @@ public final class DiscordRankSync extends JavaPlugin {
 
     public String getMessage(String identifier) {
         return this.messages.get(identifier);
+    }
+
+    public MessageEmbed getEmbed(String identifier) {
+        return this.embeds.get(identifier);
     }
 
     public PlayerManager getPlayerManager() {
