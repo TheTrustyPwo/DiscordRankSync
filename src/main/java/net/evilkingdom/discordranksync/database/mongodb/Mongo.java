@@ -1,4 +1,4 @@
-package net.evilkingdom.discordranks.database.mongodb;
+package net.evilkingdom.discordranksync.database.mongodb;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -9,8 +9,8 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import net.evilkingdom.discordranks.DiscordRankSync;
-import net.evilkingdom.discordranks.database.Database;
+import net.evilkingdom.discordranksync.DiscordRankSync;
+import net.evilkingdom.discordranksync.database.Database;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 

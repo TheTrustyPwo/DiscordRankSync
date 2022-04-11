@@ -1,6 +1,6 @@
-package net.evilkingdom.discordranks.commands;
+package net.evilkingdom.discordranksync.commands;
 
-import net.evilkingdom.discordranks.DiscordRankSync;
+import net.evilkingdom.discordranksync.DiscordRankSync;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

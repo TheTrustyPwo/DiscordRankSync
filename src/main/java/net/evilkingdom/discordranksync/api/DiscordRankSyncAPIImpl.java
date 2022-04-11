@@ -1,6 +1,6 @@
-package net.evilkingdom.discordranks.api;
+package net.evilkingdom.discordranksync.api;
 
-import net.evilkingdom.discordranks.DiscordRankSync;
+import net.evilkingdom.discordranksync.DiscordRankSync;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.Nullable;
 

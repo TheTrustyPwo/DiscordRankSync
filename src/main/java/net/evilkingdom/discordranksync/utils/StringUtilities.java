@@ -1,4 +1,4 @@
-package net.evilkingdom.discordranks.utils;
+package net.evilkingdom.discordranksync.utils;
 
 import net.md_5.bungee.api.ChatColor;
 

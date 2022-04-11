@@ -1,4 +1,4 @@
-package net.evilkingdom.discordranks.api;
+package net.evilkingdom.discordranksync.api;
 
 import org.bukkit.OfflinePlayer;
 

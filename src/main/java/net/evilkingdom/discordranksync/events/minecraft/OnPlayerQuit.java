@@ -1,6 +1,6 @@
-package net.evilkingdom.discordranks.events.minecraft;
+package net.evilkingdom.discordranksync.events.minecraft;
 
-import net.evilkingdom.discordranks.DiscordRankSync;
+import net.evilkingdom.discordranksync.DiscordRankSync;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;

@@ -1,6 +1,6 @@
-package net.evilkingdom.discordranks.player;
+package net.evilkingdom.discordranksync.player;
 
-import net.evilkingdom.discordranks.DiscordRankSync;
+import net.evilkingdom.discordranksync.DiscordRankSync;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -1,9 +1,9 @@
-package net.evilkingdom.discordranks.events.discord;
+package net.evilkingdom.discordranksync.events.discord;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.evilkingdom.discordranks.DiscordRankSync;
+import net.evilkingdom.discordranksync.DiscordRankSync;
 import org.bukkit.Bukkit;
 
 import java.util.UUID;

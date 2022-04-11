@@ -1,6 +1,6 @@
-package net.evilkingdom.discordranks.database;
+package net.evilkingdom.discordranksync.database;
 
-import net.evilkingdom.discordranks.DiscordRankSync;
+import net.evilkingdom.discordranksync.DiscordRankSync;
 
 import java.util.UUID;
 
