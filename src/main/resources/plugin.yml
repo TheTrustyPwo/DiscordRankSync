@@ -1,6 +1,6 @@
 name: DiscordRankSync
 version: '${version}'
-main: net.evilkingdom.discordranks.DiscordRankSync
+main: net.evilkingdom.discordranksync.DiscordRankSync
 api-version: 1.18
 prefix: DiscordRankSync
 authors: [ TheTrustyPwo ]
