@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
+import net.evilkingdom.discordranks.api.DiscordRankSyncAPI;
+import net.evilkingdom.discordranks.api.DiscordRankSyncAPIImpl;
 import net.evilkingdom.discordranks.commands.DiscordCommand;
 import net.evilkingdom.discordranks.database.Database;
 import net.evilkingdom.discordranks.database.mongodb.Mongo;
@@ -31,23 +33,25 @@ public final class DiscordRankSync extends JavaPlugin {
     private Map<String, Role> ranks;
     private Map<String, String> messages;
     private PlayerManager playerManager;
-
-    public static DiscordRankSync getInstance() {
-        return instance;
-    }
+    private DiscordRankSyncAPI api;
 
     @Override
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
+        loadAll();
+        registerCommands();
+        registerEvents();
+        this.playerManager = new PlayerManager(this);
+        this.api = new DiscordRankSyncAPIImpl(this);
+    }
+
+    private void loadAll() {
         loadDatabase();
         loadJDA();
         loadSlashCommands();
         loadRanks();
         loadMessages();
-        this.playerManager = new PlayerManager(this);
-        registerCommands();
-        registerEvents();
     }
 
     private void loadDatabase() {
@@ -120,6 +124,10 @@ public final class DiscordRankSync extends JavaPlugin {
         this.jda.shutdown();
     }
 
+    public static DiscordRankSync getInstance() {
+        return instance;
+    }
+
     public Database getDatabase() {
         return database;
     }
@@ -138,5 +146,9 @@ public final class DiscordRankSync extends JavaPlugin {
 
     public PlayerManager getPlayerManager() {
         return playerManager;
+    }
+
+    public DiscordRankSyncAPI getApi() {
+        return api;
     }
 }
