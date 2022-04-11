@@ -59,7 +59,7 @@ public class DiscordCommand implements CommandExecutor {
                     return false;
                 }
 
-                this.plugin.reloadConfig();
+                this.plugin.reload();
                 player.sendMessage(this.plugin.getMessage("reload"));
             }
         }
