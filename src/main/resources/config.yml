@@ -1,23 +1,48 @@
 bot_token: ""
 guild_id: ""
 
+role_update_period: 30 # In Seconds
+code_expiry_time: 60 # In Seconds
+
 database:
   type: "MONGODB"
 
-  # MongoDB
+  # MongoDB Configuration
   mongo:
-    connection_url: ""
+    connection_string: ""
     database: ""
 
 ranks:
-  # Permission : Role ID
+  # Format (See below)
+  # Permission: Role ID
   "group.donator": ""
 
 messages:
-  # /discord
-  discord:
-    - ""
+  minecraft:
+    # Default message when the player executes `/discord`
+    default:
+      - "https://discord.gg/UebcN8zxY5"
 
-  # /discord link
-  link:
-    - ""
+    # When the player executes `/discord link` even though the player is already linked
+    already_linked:
+      - "You are already linked"
+
+    # When the player executes `/discord unlink` even though the player is not linked
+    not_linked:
+      - "You are not linked"
+
+    # When the player executes `/discord link` and is not already linked
+    link:
+      - "%code%"
+
+    # When the player executes `/discord unlink` and is currently linked
+    unlink:
+      - "You unlinked"
+
+    # When the player executes `/discord whois <target>` and target is linked
+    whois_linked:
+      - ""
+
+    # When the player executes `/discord whois <target>` and target is not linked
+    whois_not_linked:
+      - ""
