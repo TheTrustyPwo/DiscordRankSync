@@ -1,6 +1,9 @@
 package net.evilkingdom.discordranksync.commands;
 
+import net.dv8tion.jda.api.entities.User;
 import net.evilkingdom.discordranksync.DiscordRankSync;
+import net.evilkingdom.discordranksync.utils.StringUtilities;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -46,12 +49,31 @@ public class DiscordCommand implements CommandExecutor {
                 player.sendMessage(this.plugin.getMessage("unlink"));
             }
             case "WHOIS" -> {
-                if (!this.plugin.getPlayerManager().getPlayerUserCache().containsKey(player.getUniqueId())) {
-                    player.sendMessage(this.plugin.getMessage("whois_not_linked"));
+                if (args.length != 2) {
+                    player.sendMessage(StringUtilities.colorize("&cUsage: /discord whois <player>"));
                     return false;
                 }
 
-                player.sendMessage(this.plugin.getMessage("whois_linked"));
+                Player target = Bukkit.getPlayer(args[1]);
+
+                if (target == null) {
+                    player.sendMessage(this.plugin.getMessage("invalid_player"));
+                    return false;
+                }
+
+                String userId = this.plugin.getPlayerManager().getPlayerUserCache().get(target.getUniqueId());
+                if (userId == null) {
+                    player.sendMessage(this.plugin.getMessage("whois_not_linked")
+                            .replace("%player%", target.getName()));
+                    return false;
+                }
+
+                User user = this.plugin.getJda().getUserById(userId);
+                player.sendMessage(this.plugin.getMessage("whois_linked")
+                        .replace("%player%", target.getName())
+                        .replace("%name%", user.getName())
+                        .replace("%discriminator%", user.getDiscriminator())
+                        .replace("%id%", user.getId()));
             }
             case "RELOAD" -> {
                 if (!player.hasPermission("drs.reload")) {

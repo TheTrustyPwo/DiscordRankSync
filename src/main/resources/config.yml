@@ -47,13 +47,17 @@ messages:
     unlink:
       - "&e&lDISCORD &8» &cYou successfully unlinked with your discord account."
 
+    # When the player specifies an invalid player in the command
+    invalid_player:
+      - "&c&l(!) &cInvalid Player!"
+
     # When the player executes `/discord whois <target>` and target is linked
     whois_linked:
-      - ""
+      - "&e&lDISCORD &8» &6%player%'s discord user is &6%name%#%discriminator% &e(ID: &6%id%&e)"
 
     # When the player executes `/discord whois <target>` and target is not linked
     whois_not_linked:
-      - ""
+      - "&e&lDISCORD &8» &6%player% &fis currently not linked."
 
     # When the player tries to reload the plugin without permission
     no_permission:
