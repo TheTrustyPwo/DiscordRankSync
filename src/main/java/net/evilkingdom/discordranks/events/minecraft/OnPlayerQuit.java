@@ -1,10 +1,8 @@
-package net.evilkingdom.discordranks.events;
+package net.evilkingdom.discordranks.events.minecraft;
 
 import net.evilkingdom.discordranks.DiscordRankSync;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class OnPlayerQuit implements Listener {

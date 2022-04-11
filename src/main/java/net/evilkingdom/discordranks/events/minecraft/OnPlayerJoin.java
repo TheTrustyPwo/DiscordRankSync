@@ -1,4 +1,4 @@
-package net.evilkingdom.discordranks.events;
+package net.evilkingdom.discordranks.events.minecraft;
 
 import net.evilkingdom.discordranks.DiscordRankSync;
 import org.bukkit.entity.Player;
@@ -16,10 +16,9 @@ public class OnPlayerJoin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        String userId = this.plugin.getDatabase().getUserID(player.getUniqueId());
-        if (userId == null) {
-            return;
+        String discordId = this.plugin.getDatabase().getDiscordId(player.getUniqueId());
+        if (discordId != null) {
+            this.plugin.getPlayerManager().getPlayerUserCache().put(player.getUniqueId(), discordId);
         }
-        this.plugin.getPlayerManager().getPlayerUserCache().put(player.getUniqueId(), userId);
     }
 }
