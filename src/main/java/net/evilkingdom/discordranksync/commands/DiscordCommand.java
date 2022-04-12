@@ -31,7 +31,7 @@ public class DiscordCommand implements CommandExecutor {
         switch (args[0].toUpperCase(Locale.ROOT)) {
             case "HELP" -> player.sendMessage(this.plugin.getMessage("help"));
             case "LINK" -> {
-                String userId = this.plugin.getPlayerManager().getPlayerUserCache().get(player.getUniqueId());
+                String userId = this.plugin.getPlayerManager().getDiscordId(player.getUniqueId());
 
                 if (userId != null) {
                     this.plugin.getJda().retrieveUserById(userId).queue(user -> player.sendMessage(this.plugin.getMessage("already_linked")
@@ -46,7 +46,7 @@ public class DiscordCommand implements CommandExecutor {
                         .replace("%code%", code));
             }
             case "UNLINK" -> {
-                String userId = this.plugin.getPlayerManager().getPlayerUserCache().get(player.getUniqueId());
+                String userId = this.plugin.getPlayerManager().getDiscordId(player.getUniqueId());
 
                 if (userId == null) {
                     player.sendMessage(this.plugin.getMessage("not_linked"));
@@ -81,7 +81,7 @@ public class DiscordCommand implements CommandExecutor {
                     return false;
                 }
 
-                String userId = this.plugin.getPlayerManager().getPlayerUserCache().get(target.getUniqueId());
+                String userId = this.plugin.getPlayerManager().getDiscordId(target.getUniqueId());
                 if (userId == null) {
                     player.sendMessage(this.plugin.getMessage("whois_not_linked")
                             .replace("%player%", target.getName()));

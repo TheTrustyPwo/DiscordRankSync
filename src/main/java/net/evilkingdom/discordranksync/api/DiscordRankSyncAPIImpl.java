@@ -13,12 +13,12 @@ public class DiscordRankSyncAPIImpl implements DiscordRankSyncAPI {
 
     @Override
     public boolean isLinked(OfflinePlayer player) {
-        return this.plugin.getPlayerManager().getPlayerUserCache().containsKey(player.getUniqueId());
+        return this.plugin.getPlayerManager().getDiscordId(player.getUniqueId()) != null;
     }
 
     @Nullable
     @Override
     public String getDiscordId(OfflinePlayer player) {
-        return this.plugin.getPlayerManager().getPlayerUserCache().getOrDefault(player.getUniqueId(), null);
+        return this.plugin.getPlayerManager().getDiscordId(player.getUniqueId());
     }
 }

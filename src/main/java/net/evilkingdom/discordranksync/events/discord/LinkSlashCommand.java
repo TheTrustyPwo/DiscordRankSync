@@ -23,15 +23,15 @@ public class LinkSlashCommand extends ListenerAdapter {
 
         String code = event.getOption("code").getAsString();
 
-        if (!this.plugin.getPlayerManager().getSecretCodes().containsKey(code)) {
+        if (this.plugin.getPlayerManager().getPlayerUUIDFromCode(code) == null) {
             event.replyEmbeds(this.plugin.getEmbed("invalid_code")).queue();
             return;
         }
 
-        UUID uuid = this.plugin.getPlayerManager().getSecretCodes().get(code);
+        UUID uuid = this.plugin.getPlayerManager().getPlayerUUIDFromCode(code);
         OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 
-        if (this.plugin.getPlayerManager().getPlayerUserCache().containsValue(event.getUser().getId())) {
+        if (this.plugin.getPlayerManager().getPlayerUUID(event.getUser().getId()) != null) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.copyFrom(this.plugin.getEmbed("already_linked"));
             embedBuilder.setDescription(embedBuilder.getDescriptionBuilder().toString().replace("%player-name%", player.getName()));
@@ -39,7 +39,7 @@ public class LinkSlashCommand extends ListenerAdapter {
             return;
         }
 
-        this.plugin.getPlayerManager().getSecretCodes().remove(code);
+        this.plugin.getPlayerManager().removeCode(code);
         this.plugin.getPlayerManager().link(uuid, event.getUser().getId());
 
         EmbedBuilder embedBuilder = new EmbedBuilder();

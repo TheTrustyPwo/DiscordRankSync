@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -67,11 +68,36 @@ public class PlayerManager {
         return code;
     }
 
-    public Map<UUID, String> getPlayerUserCache() {
-        return playerUserCache;
+    public String getDiscordId(UUID uuid) {
+        return this.playerUserCache.get(uuid);
     }
 
-    public Map<String, UUID> getSecretCodes() {
-        return secretCodes;
+    public UUID getPlayerUUID(String discordId) {
+        for (Map.Entry<UUID, String> entry : this.playerUserCache.entrySet()) {
+            if (entry.getValue().equals(discordId)) {
+                return entry.getKey();
+            }
+        }
+
+        return null;
+    }
+
+    public void loadPlayer(Player player) {
+        String discordId = this.plugin.getDatabase().getDiscordId(player.getUniqueId());
+        if (discordId != null) {
+            this.playerUserCache.put(player.getUniqueId(), discordId);
+        }
+    }
+
+    public void unloadPlayer(Player player) {
+        this.playerUserCache.remove(player.getUniqueId());
+    }
+
+    public UUID getPlayerUUIDFromCode(String code) {
+        return this.secretCodes.get(code);
+    }
+
+    public void removeCode(String code) {
+        this.secretCodes.remove(code);
     }
 }

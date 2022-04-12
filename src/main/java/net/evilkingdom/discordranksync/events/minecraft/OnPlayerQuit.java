@@ -14,6 +14,6 @@ public class OnPlayerQuit implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
-        this.plugin.getPlayerManager().getPlayerUserCache().remove(e.getPlayer().getUniqueId());
+        this.plugin.getPlayerManager().unloadPlayer(e.getPlayer());
     }
 }

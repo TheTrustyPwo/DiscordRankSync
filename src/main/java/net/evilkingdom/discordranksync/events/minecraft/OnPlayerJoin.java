@@ -15,10 +15,6 @@ public class OnPlayerJoin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        Player player = e.getPlayer();
-        String discordId = this.plugin.getDatabase().getDiscordId(player.getUniqueId());
-        if (discordId != null) {
-            this.plugin.getPlayerManager().getPlayerUserCache().put(player.getUniqueId(), discordId);
-        }
+        this.plugin.getPlayerManager().loadPlayer(e.getPlayer());
     }
 }
