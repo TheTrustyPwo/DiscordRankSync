@@ -7,10 +7,10 @@ import org.bukkit.Bukkit;
 import java.sql.*;
 import java.util.UUID;
 
-public class MySQL extends Database {
+public class MySQLDatabase extends Database {
     private Connection connection;
 
-    public MySQL(DiscordRankSync plugin) {
+    public MySQLDatabase(DiscordRankSync plugin) {
         super(plugin);
     }
 

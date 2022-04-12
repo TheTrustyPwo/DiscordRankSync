@@ -15,11 +15,11 @@ import org.bson.Document;
 import java.util.UUID;
 
 @SuppressWarnings("ConstantConditions")
-public class Mongo extends Database {
+public class MongoDBDatabase extends Database {
     private MongoClient client;
     private MongoCollection<Document> collection;
 
-    public Mongo(DiscordRankSync plugin) {
+    public MongoDBDatabase(DiscordRankSync plugin) {
         super(plugin);
     }
 

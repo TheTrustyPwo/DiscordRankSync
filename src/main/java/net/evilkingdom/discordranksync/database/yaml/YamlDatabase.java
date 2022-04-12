@@ -9,12 +9,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-public class Yaml extends Database {
+public class YamlDatabase extends Database {
     private String name;
     private File file;
     private YamlConfiguration data;
 
-    public Yaml(DiscordRankSync plugin) {
+    public YamlDatabase(DiscordRankSync plugin) {
         super(plugin);
         this.name = this.plugin.getConfig().getString("database.yaml.file_name");
     }
