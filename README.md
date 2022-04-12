@@ -63,6 +63,8 @@ This shows how you install the plugin.
 8. Once the `config.yml` is created, insert the bot token which you have copied and restart the server
 9. Join the server and start linking your account with `/discord link`!
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 
 ## Commands
 This is a list of commands available in the plugin and their respective permissions required.
@@ -75,6 +77,8 @@ This is a list of commands available in the plugin and their respective permissi
 | `/discord unlink` | Unlinks with your Discord account | None |
 | `/discord whois <player>` | Displays the target's Discord user information | None |
 | `/discord reload` | Reloads the plugin configuration | `drs.reload` |
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ## Developer API
@@ -113,6 +117,9 @@ To get the API implementation:
 ```java
 DiscordRankSyncAPI api =  ((DiscordRankSync) Bukkit.getPluginManager().getPlugin("DiscordRankSync")).getInstance().getApi();
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 
 <!-- LICENSE -->
 ## License
