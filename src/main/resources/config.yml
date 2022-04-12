@@ -12,8 +12,18 @@ database:
     connection_string: ""
     database: "ranksync"
 
+  # YAML Configuration
   yaml:
     file_name: "data.yml"
+
+  # MySQL Configuration
+  mysql:
+    host: ""
+    port: 3306
+    database: ""
+    username: "root"
+    password: ""
+    useSSL: false
 
 ranks:
   # Format (See below)
