@@ -26,9 +26,13 @@ messages:
       - "&7&o(( Click the above link to join our discord! ))"
       - "&6&m------------------------------"
 
+    # Help menu to send when the player executes `/discord help`
+    help:
+      - ""
+
     # When the player executes `/discord link` even though the player is already linked
     already_linked:
-      - "&e&lDISCORD &8» &fYou are already linked with &6%name%#%discriminator%&c!"
+      - "&e&lDISCORD &8» &fYou are already linked with &6%name%#%discriminator%&f!"
 
     # When the player executes `/discord unlink` even though the player is not linked
     not_linked:

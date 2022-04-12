@@ -13,6 +13,7 @@ import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 import net.evilkingdom.discordranksync.api.DiscordRankSyncAPI;
 import net.evilkingdom.discordranksync.api.DiscordRankSyncAPIImpl;
 import net.evilkingdom.discordranksync.commands.DiscordCommand;
+import net.evilkingdom.discordranksync.commands.DiscordTabComplete;
 import net.evilkingdom.discordranksync.database.Database;
 import net.evilkingdom.discordranksync.database.mongodb.Mongo;
 import net.evilkingdom.discordranksync.events.discord.LinkSlashCommand;
@@ -21,6 +22,7 @@ import net.evilkingdom.discordranksync.events.minecraft.OnPlayerQuit;
 import net.evilkingdom.discordranksync.player.PlayerManager;
 import net.evilkingdom.discordranksync.utils.StringUtilities;
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -129,7 +131,9 @@ public final class DiscordRankSync extends JavaPlugin {
     }
 
     private void registerCommands() {
-        getCommand("discord").setExecutor(new DiscordCommand(this));
+        PluginCommand discordCommand = getCommand("discord");
+        discordCommand.setTabCompleter(new DiscordTabComplete());
+        discordCommand.setExecutor(new DiscordCommand(this));
     }
 
     private void registerEvents() {

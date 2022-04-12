@@ -30,6 +30,9 @@ public class DiscordCommand implements CommandExecutor {
         }
 
         switch (args[0].toUpperCase(Locale.ROOT)) {
+            case "HELP" -> {
+                player.sendMessage(this.plugin.getMessage("help"));
+            }
             case "LINK" -> {
                 String userId = this.plugin.getPlayerManager().getPlayerUserCache().get(player.getUniqueId());
 
