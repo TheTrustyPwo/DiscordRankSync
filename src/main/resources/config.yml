@@ -28,11 +28,11 @@ messages:
 
     # When the player executes `/discord link` even though the player is already linked
     already_linked:
-      - "&e&lDISCORD &8» &cYou are already linked!"
+      - "&e&lDISCORD &8» &fYou are already linked with &6%name%#%discriminator%&c!"
 
     # When the player executes `/discord unlink` even though the player is not linked
     not_linked:
-      - "&e&lDISCORD &8» &cYou need to be already linked to do that!"
+      - "&e&lDISCORD &8» &fYou need to be linked to do that!"
 
     # When the player executes `/discord link` and is not already linked
     link:
@@ -43,9 +43,19 @@ messages:
       - "                   &faccount! The code expires in 1 minute!"
       - " "
 
+    # When the player successfully enters the code in discord and is linked up
+    # Acts as a confirmation message
+    link_success:
+      - " "
+      - "                           &e&lDISCORD LINKING"
+      - "                  &fYou successfully linked up with"
+      - "               &6%name%#%discriminator% &e(ID: &6%id%&e)"
+      - "   &7&o(( If you think this is a mistake, execute &f&o/discord unlink &7&o))"
+      - " "
+
     # When the player executes `/discord unlink` and is currently linked
     unlink:
-      - "&e&lDISCORD &8» &cYou successfully unlinked with your discord account."
+      - "&e&lDISCORD &8» &fYou successfully unlinked with &6%name%#%discriminator%&f."
 
     # When the player specifies an invalid player in the command
     invalid_player:
@@ -53,7 +63,8 @@ messages:
 
     # When the player executes `/discord whois <target>` and target is linked
     whois_linked:
-      - "&e&lDISCORD &8» &6%player%'s discord user is &6%name%#%discriminator% &e(ID: &6%id%&e)"
+      - "&e&lDISCORD &8» &6%player%'s &fdiscord user is &6%name%#%discriminator%"
+      - "                        &e(ID: &6%id%&e)"
 
     # When the player executes `/discord whois <target>` and target is not linked
     whois_not_linked:
@@ -70,9 +81,16 @@ messages:
   discord:
     # When the user successfully links with his/her Minecraft account
     link_success:
-      title: "✅ Success!"
+      title: "✅ Linked!"
       description: "You are now linked with **%player-name%**!"
       thumbnail: "https://minotar.net/avatar/%player-name%"
+      color: "00FF00"
+
+    # When the player successfully unlinks with his/her Discord account
+    # Acts a confirmation message
+    unlink_success:
+      title: "✅ Unlinked!"
+      description: "You are no longer linked with **%player-name%**!"
       color: "00FF00"
 
     # When the user enters an invalid code

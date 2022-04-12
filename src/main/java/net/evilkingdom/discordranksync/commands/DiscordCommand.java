@@ -1,5 +1,6 @@
 package net.evilkingdom.discordranksync.commands;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.evilkingdom.discordranksync.DiscordRankSync;
 import net.evilkingdom.discordranksync.utils.StringUtilities;
@@ -30,8 +31,15 @@ public class DiscordCommand implements CommandExecutor {
 
         switch (args[0].toUpperCase(Locale.ROOT)) {
             case "LINK" -> {
-                if (this.plugin.getPlayerManager().getPlayerUserCache().containsKey(player.getUniqueId())) {
-                    player.sendMessage(this.plugin.getMessage("already_linked"));
+                String userId = this.plugin.getPlayerManager().getPlayerUserCache().get(player.getUniqueId());
+
+                if (userId != null) {
+                    this.plugin.getJda().retrieveUserById(userId).queue(user -> {
+                        player.sendMessage(this.plugin.getMessage("already_linked")
+                            .replace("%name%", user.getName())
+                            .replace("%discriminator%", user.getDiscriminator())
+                            .replace("%id%", user.getId()));
+                    });
                     return false;
                 }
 
@@ -40,13 +48,27 @@ public class DiscordCommand implements CommandExecutor {
                         .replace("%code%", code));
             }
             case "UNLINK" -> {
-                if (!this.plugin.getPlayerManager().getPlayerUserCache().containsKey(player.getUniqueId())) {
+                String userId = this.plugin.getPlayerManager().getPlayerUserCache().get(player.getUniqueId());
+
+                if (userId == null) {
                     player.sendMessage(this.plugin.getMessage("not_linked"));
                     return false;
                 }
 
                 this.plugin.getPlayerManager().unlink(player.getUniqueId());
-                player.sendMessage(this.plugin.getMessage("unlink"));
+
+                this.plugin.getJda().retrieveUserById(userId).queue(user -> {
+                    player.sendMessage(this.plugin.getMessage("unlink")
+                            .replace("%name%", user.getName())
+                            .replace("%discriminator%", user.getDiscriminator())
+                            .replace("%id%", user.getId()));
+
+                    EmbedBuilder embedBuilder = new EmbedBuilder();
+                    embedBuilder.copyFrom(this.plugin.getEmbed("unlink_success"));
+                    embedBuilder.setDescription(embedBuilder.getDescriptionBuilder().toString().replace("%player-name%", player.getName()));
+
+                    user.openPrivateChannel().flatMap(channel -> channel.sendMessageEmbeds(embedBuilder.build())).queue();
+                });
             }
             case "WHOIS" -> {
                 if (args.length != 2) {
@@ -68,12 +90,13 @@ public class DiscordCommand implements CommandExecutor {
                     return false;
                 }
 
-                User user = this.plugin.getJda().getUserById(userId);
-                player.sendMessage(this.plugin.getMessage("whois_linked")
-                        .replace("%player%", target.getName())
-                        .replace("%name%", user.getName())
-                        .replace("%discriminator%", user.getDiscriminator())
-                        .replace("%id%", user.getId()));
+                this.plugin.getJda().retrieveUserById(userId).queue(user -> {
+                    player.sendMessage(this.plugin.getMessage("whois_linked")
+                            .replace("%player%", target.getName())
+                            .replace("%name%", user.getName())
+                            .replace("%discriminator%", user.getDiscriminator())
+                            .replace("%id%", user.getId()));
+                });
             }
             case "RELOAD" -> {
                 if (!player.hasPermission("drs.reload")) {

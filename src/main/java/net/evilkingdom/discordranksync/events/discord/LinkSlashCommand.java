@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.evilkingdom.discordranksync.DiscordRankSync;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 
 import java.util.UUID;
 
@@ -28,12 +29,12 @@ public class LinkSlashCommand extends ListenerAdapter {
         }
 
         UUID uuid = this.plugin.getPlayerManager().getSecretCodes().get(code);
-        String playerName = Bukkit.getOfflinePlayer(uuid).getName();
+        OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 
         if (this.plugin.getPlayerManager().getPlayerUserCache().containsValue(event.getUser().getId())) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.copyFrom(this.plugin.getEmbed("already_linked"));
-            embedBuilder.setDescription(embedBuilder.getDescriptionBuilder().toString().replace("%player-name%", playerName));
+            embedBuilder.setDescription(embedBuilder.getDescriptionBuilder().toString().replace("%player-name%", player.getName()));
             event.replyEmbeds(embedBuilder.build()).queue();
             return;
         }
@@ -43,10 +44,17 @@ public class LinkSlashCommand extends ListenerAdapter {
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.copyFrom(this.plugin.getEmbed("link_success"));
-        embedBuilder.setDescription(embedBuilder.getDescriptionBuilder().toString().replace("%player-name%", playerName));
+        embedBuilder.setDescription(embedBuilder.getDescriptionBuilder().toString().replace("%player-name%", player.getName()));
         embedBuilder.setThumbnail(this.plugin.getConfig().getString("messages.discord.link_success.thumbnail")
-                .replace("%player-name%", playerName));
+                .replace("%player-name%", player.getName()));
 
         event.replyEmbeds(embedBuilder.build()).queue();
+
+        if (player.isOnline()) {
+            player.getPlayer().sendMessage(this.plugin.getMessage("link_success")
+                    .replace("%name%", event.getUser().getName())
+                    .replace("%discriminator%", event.getUser().getDiscriminator())
+                    .replace("%id%", event.getUser().getId()));
+        }
     }
 }
