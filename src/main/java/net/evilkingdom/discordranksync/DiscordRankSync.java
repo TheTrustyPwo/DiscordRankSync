@@ -15,6 +15,7 @@ import net.evilkingdom.discordranksync.api.DiscordRankSyncAPIImpl;
 import net.evilkingdom.discordranksync.commands.DiscordCommand;
 import net.evilkingdom.discordranksync.commands.DiscordTabComplete;
 import net.evilkingdom.discordranksync.database.Database;
+import net.evilkingdom.discordranksync.database.DatabaseType;
 import net.evilkingdom.discordranksync.database.mongodb.MongoDBDatabase;
 import net.evilkingdom.discordranksync.database.mysql.MySQLDatabase;
 import net.evilkingdom.discordranksync.database.yaml.YamlDatabase;
@@ -69,12 +70,12 @@ public final class DiscordRankSync extends JavaPlugin {
     }
 
     private void loadDatabase() {
-        String databaseType = getConfig().getString("database.type").toUpperCase(Locale.ROOT);
+        DatabaseType databaseType = DatabaseType.valueOf(getConfig().getString("database.type").toUpperCase(Locale.ROOT));
 
         switch (databaseType) {
-            case "MONGODB" -> this.database = new MongoDBDatabase(this);
-            case "YAML" -> this.database = new YamlDatabase(this);
-            case "MYSQL" -> this.database = new MySQLDatabase(this);
+            case MONGODB -> this.database = new MongoDBDatabase(this);
+            case YAML -> this.database = new YamlDatabase(this);
+            case MYSQL -> this.database = new MySQLDatabase(this);
         }
 
         if (this.database.connect()) getLogger().info(String.format("Successfully connected to database! (%s)", databaseType));
