@@ -37,7 +37,7 @@ public class PlayerManager {
 
             this.plugin.getRanks().forEach((permission, role) -> {
                 if (player.hasPermission(permission)) {
-                    this.plugin.getJda().getGuildCache().getElementById(guildId)
+                    this.plugin.getJda().getGuildById(guildId)
                             .addRoleToMember(this.playerUserCache.get(player.getUniqueId()), role).queue();
                 }
             });

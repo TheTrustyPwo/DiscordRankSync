@@ -4,6 +4,7 @@ main: net.evilkingdom.discordranksync.DiscordRankSync
 api-version: 1.18
 prefix: DiscordRankSync
 authors: [ TheTrustyPwo ]
-description: Rank Sync Plugin
+description: Discord integration for synchronizing ranks
 commands:
   discord:
+    description: "Main command for DiscordRankSync"

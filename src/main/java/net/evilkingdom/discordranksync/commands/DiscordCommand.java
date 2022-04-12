@@ -1,7 +1,6 @@
 package net.evilkingdom.discordranksync.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
 import net.evilkingdom.discordranksync.DiscordRankSync;
 import net.evilkingdom.discordranksync.utils.StringUtilities;
 import org.bukkit.Bukkit;
@@ -30,19 +29,15 @@ public class DiscordCommand implements CommandExecutor {
         }
 
         switch (args[0].toUpperCase(Locale.ROOT)) {
-            case "HELP" -> {
-                player.sendMessage(this.plugin.getMessage("help"));
-            }
+            case "HELP" -> player.sendMessage(this.plugin.getMessage("help"));
             case "LINK" -> {
                 String userId = this.plugin.getPlayerManager().getPlayerUserCache().get(player.getUniqueId());
 
                 if (userId != null) {
-                    this.plugin.getJda().retrieveUserById(userId).queue(user -> {
-                        player.sendMessage(this.plugin.getMessage("already_linked")
+                    this.plugin.getJda().retrieveUserById(userId).queue(user -> player.sendMessage(this.plugin.getMessage("already_linked")
                             .replace("%name%", user.getName())
                             .replace("%discriminator%", user.getDiscriminator())
-                            .replace("%id%", user.getId()));
-                    });
+                            .replace("%id%", user.getId())));
                     return false;
                 }
 
@@ -93,13 +88,11 @@ public class DiscordCommand implements CommandExecutor {
                     return false;
                 }
 
-                this.plugin.getJda().retrieveUserById(userId).queue(user -> {
-                    player.sendMessage(this.plugin.getMessage("whois_linked")
-                            .replace("%player%", target.getName())
-                            .replace("%name%", user.getName())
-                            .replace("%discriminator%", user.getDiscriminator())
-                            .replace("%id%", user.getId()));
-                });
+                this.plugin.getJda().retrieveUserById(userId).queue(user -> player.sendMessage(this.plugin.getMessage("whois_linked")
+                        .replace("%player%", target.getName())
+                        .replace("%name%", user.getName())
+                        .replace("%discriminator%", user.getDiscriminator())
+                        .replace("%id%", user.getId())));
             }
             case "RELOAD" -> {
                 if (!player.hasPermission("drs.reload")) {

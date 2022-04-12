@@ -28,7 +28,13 @@ messages:
 
     # Help menu to send when the player executes `/discord help`
     help:
-      - ""
+      - " "
+      - "&e&lDISCORD HELP MENU"
+      - "&6/discord &7- &fDisplays the Discord link"
+      - "&6/discord link &7- &fLink with your Discord account"
+      - "&6/discord unlink &7- &fUnlink with your Discord account"
+      - "&6/discord whois <player> &7- Get the player's Discord user"
+      - " "
 
     # When the player executes `/discord link` even though the player is already linked
     already_linked:

@@ -27,7 +27,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.security.auth.login.LoginException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 @SuppressWarnings("ConstantConditions")
 public final class DiscordRankSync extends JavaPlugin {
@@ -39,6 +41,10 @@ public final class DiscordRankSync extends JavaPlugin {
     private Map<String, MessageEmbed> embeds;
     private PlayerManager playerManager;
     private DiscordRankSyncAPI api;
+
+    public static DiscordRankSync getInstance() {
+        return instance;
+    }
 
     @Override
     public void onEnable() {
@@ -152,10 +158,6 @@ public final class DiscordRankSync extends JavaPlugin {
     public void onDisable() {
         this.database.close();
         this.jda.shutdown();
-    }
-
-    public static DiscordRankSync getInstance() {
-        return instance;
     }
 
     public Database getDatabase() {

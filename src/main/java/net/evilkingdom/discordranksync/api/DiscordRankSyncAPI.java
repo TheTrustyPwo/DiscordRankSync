@@ -12,7 +12,7 @@ public interface DiscordRankSyncAPI {
      * @param player ~ The player to check if its linked
      * @return ~ Returns true if the player is linked with a discord user else false
      */
-     boolean isLinked(OfflinePlayer player);
+    boolean isLinked(OfflinePlayer player);
 
     /**
      * Get the discord ID of a player, if the player is linked
