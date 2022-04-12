@@ -42,7 +42,7 @@ Extremely lightweight plugin to synchronize in-game ranks with Discord roles!
 Here's why you should use this plugin:
 * Lightweight & Optimized
 * Easy setup; Drag & Drop (Set up your discord bot, and you are ready to go!)
-* Multiple database options: MongoDB
+* Multiple database options: YAML, MongoDB, MySQL
 * Developer API in case you want to implement this in your plugins!
 * Extremely and easily configurable
 
