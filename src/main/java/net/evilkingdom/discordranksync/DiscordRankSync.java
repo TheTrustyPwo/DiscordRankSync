@@ -16,6 +16,7 @@ import net.evilkingdom.discordranksync.commands.DiscordCommand;
 import net.evilkingdom.discordranksync.commands.DiscordTabComplete;
 import net.evilkingdom.discordranksync.database.Database;
 import net.evilkingdom.discordranksync.database.mongodb.Mongo;
+import net.evilkingdom.discordranksync.database.yaml.Yaml;
 import net.evilkingdom.discordranksync.events.discord.LinkSlashCommand;
 import net.evilkingdom.discordranksync.events.minecraft.OnPlayerJoin;
 import net.evilkingdom.discordranksync.events.minecraft.OnPlayerQuit;
@@ -71,7 +72,11 @@ public final class DiscordRankSync extends JavaPlugin {
 
         switch (databaseType.toUpperCase(Locale.ROOT)) {
             case "MONGODB" -> this.database = new Mongo(this);
+            case "YAML" -> this.database = new Yaml(this);
         }
+
+        if (this.database.connect()) getLogger().info("Successfully connected to database!");
+        else getLogger().warning("Failed to connect to database!");
     }
 
     private void loadJDA() {

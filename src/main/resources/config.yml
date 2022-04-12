@@ -10,7 +10,10 @@ database:
   # MongoDB Configuration
   mongo:
     connection_string: ""
-    database: ""
+    database: "ranksync"
+
+  yaml:
+    file_name: "data.yml"
 
 ranks:
   # Format (See below)

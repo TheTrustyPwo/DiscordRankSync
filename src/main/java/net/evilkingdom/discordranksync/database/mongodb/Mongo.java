@@ -12,7 +12,6 @@ import com.mongodb.client.model.Filters;
 import net.evilkingdom.discordranksync.DiscordRankSync;
 import net.evilkingdom.discordranksync.database.Database;
 import org.bson.Document;
-import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
@@ -26,8 +25,6 @@ public class Mongo extends Database {
     public Mongo(DiscordRankSync plugin) {
         super(plugin);
         this.plugin = plugin;
-        if (connect()) Bukkit.getLogger().info("Successfully connected to database!");
-        else Bukkit.getLogger().warning("Failed to connect to database!");
     }
 
     @Override
