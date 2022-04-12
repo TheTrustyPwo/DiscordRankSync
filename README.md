@@ -7,11 +7,9 @@
 
 <!-- PROJECT TITLE -->
 <!--suppress HtmlDeprecatedAttribute, HtmlUnknownAnchorTarget -->
-<br/>
+
 <div align="center">
-
 <h3 align="center">Discord Rank Sync</h3>
-
   <p align="center">
     Lightweight discord integration to synchronize ranks and reward your donors!
     <br/>
@@ -20,6 +18,20 @@
     <a href="https://github.com/TheTrustyPwo/discordjs-bot-template/issues">Request Feature</a>
   </p>
 </div>
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#commands">Commands</a></li>
+    <li><a href="#developer-api">Developer API</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
 
 <!-- ABOUT THE PROJECT -->
@@ -37,7 +49,7 @@ Here's why you should use this plugin:
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-### Installation
+## Installation
 
 This shows how you install the plugin.
 
@@ -52,7 +64,7 @@ This shows how you install the plugin.
 9. Join the server and start linking your account with `/discord link`!
 
 
-### Commands
+## Commands
 This is a list of commands available in the plugin and their respective permissions required.
 
 | Command | Description | Permission |
@@ -65,10 +77,10 @@ This is a list of commands available in the plugin and their respective permissi
 | `/discord reload` | Reloads the plugin configuration | `drs.reload` |
 
 
-### Developer API
+## Developer API
 This section is for developers who want to make use of this plugin's API.
 
-#### API
+### API
 ```java
 package net.evilkingdom.discordranksync.api;
 
@@ -99,7 +111,7 @@ public interface DiscordRankSyncAPI {
 
 To get the API implementation:
 ```java
-DiscordRankSyncAPI api =  ((DiscordRankSync) Bukkit.getPluginManager().getPlugin("DiscordRankSync")).getApi();
+DiscordRankSyncAPI api =  ((DiscordRankSync) Bukkit.getPluginManager().getPlugin("DiscordRankSync")).getInstance().getApi();
 ```
 
 <!-- LICENSE -->
