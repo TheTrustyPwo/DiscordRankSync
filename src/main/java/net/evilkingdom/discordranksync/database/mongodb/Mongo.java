@@ -37,7 +37,7 @@ public class Mongo extends Database {
                 .build();
 
         this.client = MongoClients.create(settings);
-        this.collection = this.client.getDatabase(databaseName).getCollection("players");
+        this.collection = this.client.getDatabase(databaseName).getCollection("discordranksync");
         return true;
     }
 
