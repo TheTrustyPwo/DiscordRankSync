@@ -85,6 +85,7 @@ This is a list of commands available in the plugin and their respective permissi
 This section is for developers who want to make use of this plugin's API.
 
 ### API
+
 ```java
 package net.evilkingdom.discordranksync.api;
 

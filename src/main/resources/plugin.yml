@@ -1,7 +1,7 @@
 name: DiscordRankSync
 version: '${version}'
 main: net.evilkingdom.discordranksync.DiscordRankSync
-api-version: 1.18
+api-version: 1.19
 prefix: DiscordRankSync
 authors: [ TheTrustyPwo ]
 description: Discord integration for synchronizing ranks

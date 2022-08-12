@@ -19,11 +19,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT'
     implementation('net.dv8tion:JDA:5.0.0-alpha.5') {
         exclude module: 'opus-java'
     }
-    implementation('org.mongodb:mongodb-driver-sync:4.5.1')
+    implementation('org.mongodb:mongodb-driver-sync:4.7.1')
 }
 
 def targetJavaVersion = 17

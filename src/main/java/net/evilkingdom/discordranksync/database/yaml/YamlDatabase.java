@@ -2,7 +2,6 @@ package net.evilkingdom.discordranksync.database.yaml;
 
 import net.evilkingdom.discordranksync.DiscordRankSync;
 import net.evilkingdom.discordranksync.database.Database;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
