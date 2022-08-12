@@ -13,9 +13,9 @@
   <p align="center">
     Lightweight discord integration to synchronize ranks and reward your donors!
     <br/>
-    <a href="https://github.com/TheTrustyPwo/discordjs-bot-template/issues">Report Bug</a>
+    <a href="https://github.com/EvilKingdom/DiscordRankSync/issues">Report Bug</a>
     ·
-    <a href="https://github.com/TheTrustyPwo/discordjs-bot-template/issues">Request Feature</a>
+    <a href="https://github.com/EvilKingdom/DiscordRankSync/issues">Request Feature</a>
   </p>
 </div>
 
