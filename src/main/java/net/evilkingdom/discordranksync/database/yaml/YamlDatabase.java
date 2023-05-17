@@ -22,14 +22,13 @@ public class YamlDatabase extends Database {
     public boolean connect() {
         this.file = new File(this.plugin.getDataFolder(), this.name);
         this.data = YamlConfiguration.loadConfiguration(this.file);
-        if (!file.exists()) {
-            try {
-                return file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (file.exists()) return true;
+        try {
+            return file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     @Override
