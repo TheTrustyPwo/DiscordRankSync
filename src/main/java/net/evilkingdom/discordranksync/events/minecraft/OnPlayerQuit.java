@@ -15,5 +15,6 @@ public class OnPlayerQuit implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
         this.plugin.getPlayerManager().unloadPlayer(e.getPlayer());
+        this.plugin.getPlayerManager().untoggleChat(e.getPlayer());
     }
 }
