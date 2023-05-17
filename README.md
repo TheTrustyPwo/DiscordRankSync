@@ -37,7 +37,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Extremely lightweight plugin to synchronize in-game ranks with Discord roles!
+Extremely lightweight plugin to synchronize in-game ranks with Discord roles! It also
+allows cross-platform chatting between Discord and Minecraft!
 
 Here's why you should use this plugin:
 * Lightweight & Optimized
@@ -75,8 +76,10 @@ This is a list of commands available in the plugin and their respective permissi
 | `/discord help` | Displays the command help menu in game | None |
 | `/discord link` | Generates a code for you to link with your Discord account | None |
 | `/discord unlink` | Unlinks with your Discord account | None |
+| `/discord chat` | Toggles your Discord / Minecraft chat | None |
 | `/discord whois <player>` | Displays the target's Discord user information | None |
 | `/discord reload` | Reloads the plugin configuration | `drs.reload` |
+| `/discord update` | Force update roles of online players | `drs.update` |
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
