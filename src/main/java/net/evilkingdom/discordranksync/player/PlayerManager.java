@@ -4,15 +4,14 @@ import net.evilkingdom.discordranksync.DiscordRankSync;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PlayerManager {
     private final DiscordRankSync plugin;
     private final Map<UUID, String> playerUserCache;
     private final Map<String, UUID> secretCodes;
+    private final Set<UUID> chatToggled;
     private final long ROLE_UPDATE_PERIOD;
     private final long CODE_EXPIRY_TIME;
 
@@ -20,6 +19,7 @@ public class PlayerManager {
         this.plugin = plugin;
         this.playerUserCache = new HashMap<>();
         this.secretCodes = new HashMap<>();
+        this.chatToggled = new HashSet<>();
         this.ROLE_UPDATE_PERIOD = this.plugin.getConfig().getLong("role_update_period") * 60L;
         this.CODE_EXPIRY_TIME = this.plugin.getConfig().getLong("code_expiry_time") * 60L;
         startUpdateRoleTask();
@@ -45,12 +45,12 @@ public class PlayerManager {
     }
 
     public void link(UUID uuid, String discordId) {
-        this.plugin.getDatabase().linkPlayer(uuid, discordId);
+        this.plugin.getPluginDatabase().linkPlayer(uuid, discordId);
         this.playerUserCache.put(uuid, discordId);
     }
 
     public void unlink(UUID uuid) {
-        this.plugin.getDatabase().unlinkPlayer(uuid);
+        this.plugin.getPluginDatabase().unlinkPlayer(uuid);
         this.playerUserCache.remove(uuid);
     }
 
@@ -82,7 +82,7 @@ public class PlayerManager {
     }
 
     public void loadPlayer(Player player) {
-        String discordId = this.plugin.getDatabase().getDiscordId(player.getUniqueId());
+        String discordId = this.plugin.getPluginDatabase().getDiscordId(player.getUniqueId());
         if (discordId != null) {
             this.playerUserCache.put(player.getUniqueId(), discordId);
         }
@@ -98,5 +98,17 @@ public class PlayerManager {
 
     public void removeCode(String code) {
         this.secretCodes.remove(code);
+    }
+
+    public void toggleChat(Player player) {
+        this.chatToggled.add(player.getUniqueId());
+    }
+
+    public void untoggleChat(Player player) {
+        this.chatToggled.remove(player.getUniqueId());
+    }
+
+    public boolean isChatToggled(Player player) {
+        return this.chatToggled.contains(player.getUniqueId());
     }
 }
