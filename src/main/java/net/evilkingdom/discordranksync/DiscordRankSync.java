@@ -3,9 +3,7 @@ package net.evilkingdom.discordranksync;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -20,6 +18,8 @@ import net.evilkingdom.discordranksync.database.mongodb.MongoDBDatabase;
 import net.evilkingdom.discordranksync.database.mysql.MySQLDatabase;
 import net.evilkingdom.discordranksync.database.yaml.YamlDatabase;
 import net.evilkingdom.discordranksync.events.discord.LinkSlashCommand;
+import net.evilkingdom.discordranksync.events.discord.OnMessage;
+import net.evilkingdom.discordranksync.events.minecraft.OnPlayerChat;
 import net.evilkingdom.discordranksync.events.minecraft.OnPlayerJoin;
 import net.evilkingdom.discordranksync.events.minecraft.OnPlayerQuit;
 import net.evilkingdom.discordranksync.player.PlayerManager;
@@ -42,6 +42,7 @@ public final class DiscordRankSync extends JavaPlugin {
     private Map<String, Role> ranks;
     private Map<String, String> messages;
     private Map<String, MessageEmbed> embeds;
+    private TextChannel chatChannel;
     private PlayerManager playerManager;
     private DiscordRankSyncAPI api;
 
@@ -67,15 +68,18 @@ public final class DiscordRankSync extends JavaPlugin {
         loadRanks();
         loadMessages();
         loadEmbeds();
+        loadChatChannel();
     }
 
     private void loadDatabase() {
         DatabaseType databaseType = DatabaseType.valueOf(getConfig().getString("database.type").toUpperCase(Locale.ROOT));
 
-        switch (databaseType) {
-            case MONGODB -> this.database = new MongoDBDatabase(this);
-            case YAML -> this.database = new YamlDatabase(this);
-            case MYSQL -> this.database = new MySQLDatabase(this);
+        if (databaseType.toString().equals("MONGODB")) {
+            this.database = new MongoDBDatabase(this);
+        } else if (databaseType.toString().equals("YAML")) {
+            this.database = new YamlDatabase(this);
+        } else if (databaseType.toString().equals("MYSQL")) {
+            this.database = new MySQLDatabase(this);
         }
 
         if (this.database.connect()) getLogger().info(String.format("Successfully connected to database! (%s)", databaseType));
@@ -87,7 +91,7 @@ public final class DiscordRankSync extends JavaPlugin {
 
         builder.disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE);
         builder.setBulkDeleteSplittingEnabled(false);
-        builder.setActivity(Activity.playing("Evil Kingdom"));
+        builder.setActivity(Activity.playing(getConfig().getString("bot_activity")));
 
         try {
             this.jda = builder.build();
@@ -96,6 +100,8 @@ public final class DiscordRankSync extends JavaPlugin {
         } catch (LoginException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        this.jda.addEventListener(new OnMessage(this));
     }
 
     private void loadSlashCommands() {
@@ -144,6 +150,11 @@ public final class DiscordRankSync extends JavaPlugin {
         getLogger().info("Loaded embeds");
     }
 
+    private void loadChatChannel() {
+        String channelId = getConfig().getString("chat_channel_id");
+        this.chatChannel = this.jda.getTextChannelById(channelId);
+    }
+
     private void registerCommands() {
         PluginCommand discordCommand = getCommand("discord");
         discordCommand.setTabCompleter(new DiscordTabComplete());
@@ -153,6 +164,7 @@ public final class DiscordRankSync extends JavaPlugin {
     private void registerEvents() {
         Bukkit.getPluginManager().registerEvents(new OnPlayerJoin(this), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerQuit(this), this);
+        Bukkit.getPluginManager().registerEvents(new OnPlayerChat(this), this);
     }
 
     public void reload() {
@@ -168,7 +180,7 @@ public final class DiscordRankSync extends JavaPlugin {
         this.jda.shutdown();
     }
 
-    public Database getDatabase() {
+    public Database getPluginDatabase() {
         return database;
     }
 
@@ -186,6 +198,10 @@ public final class DiscordRankSync extends JavaPlugin {
 
     public MessageEmbed getEmbed(String identifier) {
         return this.embeds.get(identifier);
+    }
+
+    public TextChannel getChatChannel() {
+        return chatChannel;
     }
 
     public PlayerManager getPlayerManager() {
