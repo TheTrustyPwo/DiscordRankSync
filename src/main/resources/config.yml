@@ -1,11 +1,13 @@
 bot_token: ""
 guild_id: ""
+chat_channel_id: ""
+bot_activity: "Your Server" # Will display in the bot's status as "Playing Your Server"
 
 role_update_period: 30 # In Seconds
 code_expiry_time: 60 # In Seconds
 
 database:
-  type: "MONGODB"
+  type: "YAML"
 
   # MongoDB Configuration
   mongo:
@@ -28,14 +30,15 @@ database:
 ranks:
   # Format (See below)
   # Permission: Role ID
-  "group.donator": ""
+  # NOTE - Replace . with _ in permissions
+  "group_donator": ""
 
 messages:
   minecraft:
     # Default message when the player executes `/discord`
     default:
       - "&6&m------------------------------"
-      - "&e&lDiscord: &flink"
+      - "&e&lDiscord: &fhttps://discord.gg/4EfUJJ6Ppe"
       - "&7&o(( Click the above link to join our discord! ))"
       - "&6&m------------------------------"
 
@@ -93,13 +96,33 @@ messages:
     whois_not_linked:
       - "&e&lDISCORD &8» &6%player% &fis currently not linked."
 
+    # Messages sent in discord that are relayed to Minecraft
+    chat:
+      - "&6%name%#%discriminator% &8» &f%message%"
+
+    # When the player executes `/discord chat` and enables chat
+    chat-enabled:
+      - "&e&lDISCORD &8» &fChat &a&lENABLED"
+
+    # When the player executes `/discord chat` and disables chat
+    chat-disabled:
+      - "&e&lDISCORD &8» &fChat &c&lDISABLED"
+
     # When the player tries to reload the plugin without permission
     no_permission:
       - "&c&l(!) &cNo Permission!"
 
-    # When the player successfully reloads the plugin
+    # When the console tries to execute commands reserved for players
+    only-players:
+      - "&c&l(!) &cOnly players can execute this command!"
+
+    # When the admin successfully reloads the plugin
     reload:
       - "&e&lDISCORD &8» &aSuccessfully reloaded the plugin."
+
+    # When the admin force updates roles for players in the server
+    update:
+      - "&e&lDISCORD &8» &aSuccessfully updated roles for online players."
 
   discord:
     # When the user successfully links with his/her Minecraft account
@@ -127,3 +150,6 @@ messages:
       title: "❌ Already Linked!"
       description: "You are already linked to **%player-name%**! \nType `/discord unlink` in game to unlink with this account."
       color: "FF00000"
+
+    # Minecraft chat messages relayed to Discord
+    chat: "%player%: %message%"
