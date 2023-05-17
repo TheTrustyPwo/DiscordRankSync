@@ -16,13 +16,7 @@ public class StringUtilities {
      * @return The colorized string.
      */
     public static String colorize(String string) {
-        final Pattern pattern = Pattern.compile("&#(\\w{5}[0-9a-f])");
-        final Matcher matcher = pattern.matcher(string);
-        final StringBuilder buffer = new StringBuilder();
-        while (matcher.find()) {
-            matcher.appendReplacement(buffer, ChatColor.of("#" + matcher.group(1)).toString());
-        }
-        return ChatColor.translateAlternateColorCodes('&', matcher.appendTail(buffer).toString());
+        return ChatColor.translateAlternateColorCodes('&', string);
     }
 
     /**
